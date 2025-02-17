@@ -61,13 +61,6 @@ export default function Dashboard({ data }: DashboardProps) {
         },
     ]
 
-    const chartConfig = {
-        value: {
-            label: 'Value',
-            color: '#2563eb',
-        },
-    } satisfies ChartConfig
-
     return (
         <div className="container mx-auto p-4 space-y-4">
             <h1 className="text-3xl font-bold">Website Analysis Dashboard</h1>
