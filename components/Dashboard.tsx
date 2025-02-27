@@ -19,16 +19,14 @@ import {
 } from '@/components/ui/accordion'
 import { Progress } from '@/components/ui/progress'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { ChartConfig, ChartContainer } from '@/components/ui/chart'
 import { Badge } from '@/components/ui/badge'
-import { Bar, BarChart, Legend, Tooltip } from 'recharts'
+import { Legend, Tooltip } from 'recharts'
 import {
     Radar,
     RadarChart,
     PolarGrid,
     PolarAngleAxis,
     PolarRadiusAxis,
-    ResponsiveContainer,
 } from 'recharts'
 
 interface DashboardProps {
@@ -37,6 +35,8 @@ interface DashboardProps {
 
 export default function Dashboard({ data }: DashboardProps) {
     const { metadata, rawData, analysis } = data
+
+    console.log('data: ', data)
 
     const d = [
         {
@@ -165,9 +165,12 @@ export default function Dashboard({ data }: DashboardProps) {
                 </CardHeader>
                 <CardContent>
                     <ul className="list-disc pl-5">
-                        {analysis.top_5_suggestions.map((suggestion, index) => (
-                            <li key={index}>{suggestion}</li>
-                        ))}
+                        {analysis.top_5_suggestions &&
+                            analysis.top_5_suggestions.map(
+                                (suggestion, index) => (
+                                    <li key={index}>{suggestion}</li>
+                                )
+                            )}
                     </ul>
                 </CardContent>
             </Card>

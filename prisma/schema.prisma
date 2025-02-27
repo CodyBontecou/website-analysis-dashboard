@@ -1,0 +1,73 @@
+// This file is the Prisma schema for website analytics data
+// It models website performance and accessibility metrics
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Website {
+  id               Int                @id @default(autoincrement())
+  url              String             @unique
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  lighthouseSummaries LighthouseSummary[]
+  analyses         WebsiteAnalysis[]
+}
+
+enum DeviceType {
+  MOBILE
+  DESKTOP
+}
+
+model LighthouseSummary {
+  id             Int        @id @default(autoincrement())
+  websiteId      Int
+  website        Website    @relation(fields: [websiteId], references: [id])
+  deviceType     DeviceType
+  timestamp      DateTime
+  performance    Int
+  accessibility  Int
+  seo            Int
+  bestPractices  Int
+  issues         Issue[]
+
+  @@index([websiteId, deviceType])
+}
+
+model Issue {
+  id                     Int                @id @default(autoincrement())
+  description            String
+  lighthouseSummaryId    Int?
+  lighthouseSummary      LighthouseSummary? @relation(fields: [lighthouseSummaryId], references: [id])
+}
+
+model WebsiteAnalysis {
+  id                 Int         @id @default(autoincrement())
+  websiteId          Int
+  website            Website     @relation(fields: [websiteId], references: [id])
+  timestamp          DateTime    @default(now())
+  businessType       String
+  layoutScore        Float
+  colorScore         Float
+  typographyScore    Float
+  clarityScore       Float
+  layoutFeedback     String      @db.Text
+  colorFeedback      String      @db.Text
+  typographyFeedback String      @db.Text
+  clarityFeedback    String      @db.Text
+  overallScore       Float
+  suggestions        Suggestion[]
+}
+
+model Suggestion {
+  id                Int             @id @default(autoincrement())
+  websiteAnalysisId Int
+  websiteAnalysis   WebsiteAnalysis @relation(fields: [websiteAnalysisId], references: [id])
+  description       String          @db.Text
+  priority          Int             // Lower number = higher priority
+}
