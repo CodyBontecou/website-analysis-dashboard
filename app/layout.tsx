@@ -5,16 +5,15 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
     title: 'Website Analysis Dashboard',
     description: 'View and analyze website performance data',
-    // themeColor: [
-    //   { media: "(prefers-color-scheme: light)", color: "white" },
-    //   { media: "(prefers-color-scheme: dark)", color: "black" },
-    // ],
+    themeColor: [
+        { media: '(prefers-color-scheme: light)', color: 'white' },
+        { media: '(prefers-color-scheme: dark)', color: 'black' },
+    ],
     icons: {
         icon: '/favicon.ico',
         shortcut: '/favicon-16x16.png',
         apple: '/apple-touch-icon.png',
     },
-    generator: 'v0.dev',
 }
 
 interface RootLayoutProps {
