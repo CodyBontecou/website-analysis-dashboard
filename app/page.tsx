@@ -39,9 +39,6 @@ export default async function Home() {
 
     return (
         <main className="container mx-auto p-4">
-            <h1 className="text-3xl font-bold mb-6">
-                Website Analytics Dashboard
-            </h1>
             <Card>
                 <CardHeader>
                     <CardTitle>Analyzed Websites</CardTitle>
